@@ -17,5 +17,6 @@ CREATE TABLE Products (
 );
 
 -- UPDATE Products SET stock_quantity=555 WHERE item_id=3;
+-- SELECT * FROM Products WHERE stock_quantity<1000;
 
 SELECT * FROM Products
