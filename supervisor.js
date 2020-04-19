@@ -89,6 +89,7 @@ function newDepartment() {
         validate: validateName
     }]).then(function (input) {
         var departmentName = input.departmentName;
+        departmentName = departmentName.charAt(0).toUpperCase() + departmentName.slice(1);
         if (input.departmentName.toUpperCase() == "Q") {
             console.log("");
             console.log("");
