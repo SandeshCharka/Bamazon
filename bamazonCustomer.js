@@ -58,7 +58,8 @@ function customer(res) {
                 correct = true;
                 var userProduct = res[i].product_name;
                 var stockQuantity = res[i].stock_quantity;
-                var price = res[i].price;
+                var price = parseFloat(res[i].price).toFixed(2);
+                var productSales = res[i].product_sales;
                 var id = res[i].item_id;
                 console.log("");
                 console.log("You chose the " + userProduct + " product for $" + price + ".");
@@ -71,7 +72,7 @@ function customer(res) {
                 }]).then(function (input) {
                     var userAmount = input.units;
                     // To always show atleast 2 decimals.
-                    price = (price * userAmount).toFixed(2);
+                    price = (price * userAmount);
                     if (userAmount == 0) {
                         console.log("");
                         console.log("Unfortunate, see you next time!");
@@ -86,14 +87,15 @@ function customer(res) {
                     } else {
                         // Why do we do this method again?
                         connection.query("UPDATE Products SET ? WHERE ?", [{
-                            stock_quantity: stockQuantity - userAmount
+                            stock_quantity: stockQuantity - userAmount,
+                            product_sales: productSales + price
                         }, {
                             item_id: id
                         }], function (err) {
                             if (err) throw err;
                             console.log("");
                             console.log("You purchased " + userAmount + " " + userProduct + "'s");
-                            console.log("Your total purchase price is: $" + price);
+                            console.log("Your total purchase price is: $" + price.toFixed(2));
                             console.log("Congrats!");
                             console.log("");
                             process.exit();

@@ -65,7 +65,7 @@ function productsForSale() {
     connection.query("SELECT * FROM Products", function (err, res) {
         if (err) throw (err);
         var table = new Table({
-            head: ['ID', 'Product Name', 'Deparment', 'Price', 'In stock'],
+            head: ['ID', 'Product Name', 'Department', 'Price', 'In stock'],
             colWidths: [5, 30, 20, 10, 10]
         });
         for (i = 0; i < res.length; i++) {
@@ -146,53 +146,66 @@ function addInventory() {
 };
 
 function addProduct() {
-    inquirer.prompt([{
-        type: "input",
-        name: "productName",
-        message: "Enter Product's Name [Enter Q to Quit]",
-        validate: validateName
-    }]).then(function (input) {
-        var productName = input.productName;
-        if (input.productName.toUpperCase() == "Q") {
-            console.log("");
-            console.log("");
-            // Return stops the function from going further and prompting the next questions and resets back to the start.
-            return managerPrompt();
-        }
+    var q = "SELECT department_name FROM Departments GROUP BY department_name"
+    connection.query(q, function (err, res) {
+        if (err) throw (err);
+        // console.log(res);
         inquirer.prompt([{
-                type: "input",
-                name: "productDepartment",
-                message: "Enter Product's Department",
-                validate: validateName
-            },
-            {
-                type: "input",
-                name: "productPrice",
-                message: "Enter Product's Price",
-                validate: validateNumber
-            },
-            {
-                type: "input",
-                name: "productStock",
-                message: "Enter Product's Stock Quantity",
-                validate: validateNumber
+            type: "input",
+            name: "productName",
+            message: "Enter Product's Name [Enter Q to Quit]",
+            validate: validateName
+        }]).then(function (input) {
+            var productName = input.productName;
+            if (input.productName.toUpperCase() == "Q") {
+                console.log("");
+                console.log("");
+                // Return stops the function from going further and prompting the next questions and resets back to the start.
+                return managerPrompt();
             }
-        ]).then(function (input) {
-            var departmentName = input.productDepartment;
-            var productPrice = input.productPrice;
-            var stockQuantity = input.productStock;
-            connection.query("INSERT INTO Products SET ?", [{
-                product_name: productName,
-                department_name: departmentName,
-                price: productPrice,
-                stock_quantity: stockQuantity
-            }], function (err) {
-                if (err) throw (err);
-                console.log("")
-                console.log("----------Product successfully added!----------")
-                console.log("")
-                managerPrompt();
-            })
-        });
+            inquirer.prompt([{
+                    type: "list",
+                    name: "productDepartment",
+                    message: "Which Department does this product belong to?",
+                    choices: function () {
+                        var departmentArray = [];
+                        for (var i = 0; i < res.length; i++) {
+                            departmentArray.push(res[i].department_name);
+                        }
+                        return departmentArray;
+                    }
+                },
+                {
+                    type: "input",
+                    name: "productPrice",
+                    message: "Enter Product's Price",
+                    validate: validateNumber
+                },
+                {
+                    type: "input",
+                    name: "productStock",
+                    message: "Enter Product's Stock Quantity",
+                    validate: validateNumber
+                }
+            ]).then(function (input) {
+                var departmentName = input.productDepartment;
+                var productPrice = input.productPrice;
+                var stockQuantity = input.productStock;
+                departmentName = departmentName.charAt(0).toUpperCase() + departmentName.slice(1);
+                connection.query("INSERT INTO Products SET ?", [{
+                    product_name: productName,
+                    department_name: departmentName,
+                    price: productPrice,
+                    stock_quantity: stockQuantity,
+                    product_sales: 0
+                }], function (err) {
+                    if (err) throw (err);
+                    console.log("")
+                    console.log("----------Product successfully added!----------")
+                    console.log("")
+                    managerPrompt();
+                })
+            });
+        })
     })
 };
