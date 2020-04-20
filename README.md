@@ -12,9 +12,7 @@ Bamazon is a command line node app. Has 3 different user based functionalities.
 
 ## Overview
 
-![https://www.screencast.com/t/aS68HGCV00](https://raw.githubusercontent.com/SandeshCharka/Bamazon/master/images/Demo%20Image.png)
-
-## Click the image below for a Demo of the project
+### Click the image below for a Demo of the project
 
 <a href="https://www.screencast.com/t/aS68HGCV00" target="_blank">
   <img alt="Bamazon Demo Video" src="images\Demo Image.png" width="" height="" />
