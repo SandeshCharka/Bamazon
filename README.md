@@ -8,7 +8,7 @@ Bamazon is a command line node app. Has 3 different user based functionalities.
 * **Manager**
     - Allows the user to view, update, add products as well as viewing product-sales.
 * **Supervisor**
-    - Allows the user to view, add departments, as well as viewing department costs
+    - Allows the user to view, add departments, as well as viewing department costs and profits.
 
 ## Overview
 
