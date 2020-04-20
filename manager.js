@@ -94,6 +94,7 @@ function lowInventory() {
     })
 };
 
+
 function addInventory() {
     connection.query("SELECT * FROM Products", function (err, res) {
         if (err) throw (err);
