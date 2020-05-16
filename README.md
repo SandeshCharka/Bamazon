@@ -49,7 +49,7 @@ Bamazon
 │    -Run the schema.sql file in mySQL.
 │
 ├──departments.csv
-│   -Import the departments data into the department table.
+│   -Import the departments data into the departments table.
 │
 └──products.csv
     -Import the products data into the products table.
