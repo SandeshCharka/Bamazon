@@ -18,6 +18,51 @@ Bamazon is a command line node app. Has 3 different user based functionalities.
   <img alt="Bamazon Demo Video" src="images\Demo Image.png" width="" height="" />
 </a>
 
+## Local Setup
+
+**Step 1 - Clone my repo using the command line below.**
+```
+git clone https://github.com/SandeshCharka/Bamazon.git
+```
+**Step 2 - Change directory to the cloned repo folder.**
+```
+cd Bamazon
+```
+**Step 3 - Install all required NPM packages.**
+```
+npm install
+```
+**Step 4 - Set up mySQL database.**
+```
+Bamazon
+│
+├── customer.js
+│   -Edit the customer.js file to fit your database setup. 
+│
+├── manager.js
+│   -Edit the manager.js file to fit your database setup. 
+│
+├── supervisor.js
+│   -Edit the supervisor.js file to fit your database setup.
+│
+├── schema.sql
+│    -Run the schema.sql file in mySQL.
+│
+├──departments.csv
+│   -Import the departments data into the department table.
+│
+└──products.csv
+    -Import the products data into the products table.
+```
+**Step 5 - Start the application server using the any of the command lines below**
+```
+node customer.js
+
+node manager.js
+
+node supervisor.js
+```
+
 ## Technologies Used
 
 * Node JS
